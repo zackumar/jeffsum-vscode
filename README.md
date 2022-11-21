@@ -4,7 +4,7 @@ Lorem Ipsum Autocomplete but with Jeff Goldblum quotes. Inspired by @seanehalpin
 
 ## Features
 
-![Jeffsum](./images/jeffsum.gif)
+![Jeffsum](/images/jeffsum.gif)
 
 ## Release Notes
 

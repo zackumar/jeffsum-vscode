@@ -2,6 +2,10 @@
   "name": "jeffsum-vscode",
   "displayName": "jeffsum-vscode",
   "description": "Lorem Ipsum with Jeff. Inspired by @seanehalpin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zackumar/jeffsum-vscode.git"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.73.0"
