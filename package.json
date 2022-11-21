@@ -10,17 +10,14 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:jeffsum-vscode.helloWorld"
+    "onLanguage:html"
   ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "jeffsum-vscode.helloWorld",
-        "title": "Hello World"
-      }
-    ]
+  "capabilities": {
+    "completionProvider": {
+      "resolveProvider": "true"
+    }
   },
+  "main": "./out/extension.js",
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
