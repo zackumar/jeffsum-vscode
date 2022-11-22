@@ -10,4 +10,10 @@ Lorem Ipsum Autocomplete but with Jeff Goldblum quotes. Inspired by @seanehalpin
 
 ### 1.0.0
 
-Initial release of jeffsum!
+- Initial release of jeffsum!
+
+### 1.1.0
+
+- Added new file extentions: tsx and jsx (along with existing html)
+- Added jeffsum icon!
+- Some minor code fixes for usability (autosuggestion when spelling out jeffsum, fix for code efficiency)
