@@ -2,6 +2,8 @@
   "name": "jeffsum-vscode",
   "displayName": "jeffsum-vscode",
   "description": "Lorem Ipsum with Jeff. Inspired by @seanehalpin",
+  "publisher": "zackumar",
+  "icon": "images/jeff.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/zackumar/jeffsum-vscode.git"
@@ -14,7 +16,9 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:html"
+    "onLanguage:html",
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact"
   ],
   "capabilities": {
     "completionProvider": {

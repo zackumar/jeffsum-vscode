@@ -1,5 +1,3 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
 const quotes = [
@@ -38,68 +36,55 @@ const quotes = [
   "It's nice to play a character that has a soulful, dependent, close relationship. It must mean my character is interesting in some way.",
 ];
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "jeffsum-vscode" is now active!'
+  vscode.languages.registerCompletionItemProvider(
+    ['html', 'typescriptreact', 'javascriptreact'],
+    {
+      provideCompletionItems(
+        document: vscode.TextDocument,
+        position: vscode.Position,
+        token: vscode.CancellationToken
+      ) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substring(0, position.character);
+
+        const matches = /\b(jeffsum)([0-9]*)/g.exec(linePrefix);
+
+        let count = 25;
+        if (matches && matches[2] !== '') {
+          count = parseInt(matches[2]);
+        }
+
+        const ci = new vscode.CompletionItem(
+          matches ? matches[0] : 'jeffsum',
+          vscode.CompletionItemKind.Text
+        );
+
+        const jeffArray: string[] = [];
+
+        Array.from({ length: count }).forEach(() => {
+          const randomSentence =
+            quotes[Math.floor(Math.random() * quotes.length)];
+          jeffArray.push(randomSentence);
+        });
+
+        const jeffsumText = jeffArray.join(' ');
+
+        const jeffsumWordArray = jeffsumText.split(' ');
+
+        let text = jeffsumWordArray.slice(0, count).join(' ');
+        if (/[,-]/g.test(text.slice(-1))) {
+          text = text.slice(0, -1) + '.';
+        } else if (!/[?.!]/g.test(text.slice(-1))) {
+          text += '.';
+        }
+        ci.detail = 'Jeffsum';
+        ci.documentation = text;
+        ci.insertText = new vscode.SnippetString(text);
+
+        return [ci];
+      },
+    }
   );
-
-  //Jeff
-  vscode.languages.registerCompletionItemProvider('html', {
-    provideCompletionItems(
-      document: vscode.TextDocument,
-      position: vscode.Position,
-      token: vscode.CancellationToken
-    ) {
-      const linePrefix = document
-        .lineAt(position)
-        .text.substring(0, position.character);
-
-      const matches = /\b(jeffsum)([0-9]*)/g.exec(linePrefix);
-      if (!matches) {
-        return undefined;
-      }
-
-      let count = 25;
-      if (matches[2] !== '') {
-        count = parseInt(matches[2]);
-      }
-      console.log(matches);
-      console.log(count);
-
-      let ci = new vscode.CompletionItem(
-        matches[0],
-        vscode.CompletionItemKind.Text
-      );
-
-      let jeffsumText = '';
-      let jeffArray: string[] = [];
-      Array.from({ length: count }).forEach(() => {
-        const randomSentence =
-          quotes[Math.floor(Math.random() * quotes.length)];
-        jeffArray.push(randomSentence);
-        jeffsumText = jeffArray.join(' ');
-      });
-
-      const jeffsumWordArray = jeffsumText.split(' ');
-
-      let text = jeffsumWordArray.slice(0, count).join(' ');
-      if (/[,-]/g.test(text.slice(-1))) {
-        text = text.slice(0, -1) + '.';
-      } else if (!/[?.!]/g.test(text.slice(-1))) {
-        text += '.';
-      }
-      ci.detail = 'Jeffsum';
-      ci.documentation = text;
-      ci.insertText = new vscode.SnippetString(text);
-
-      return [ci];
-    },
-  });
 }
-
-// This method is called when your extension is deactivated
-export function deactivate() {}
